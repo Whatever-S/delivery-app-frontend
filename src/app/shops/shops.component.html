@@ -1,0 +1,15 @@
+<div class="shops-container">
+    <div class="shop-list">
+      <h2>Shops</h2>
+      <ul>
+        <li *ngFor="let shop of shops" (click)="selectShop(shop)">{{ shop.name }}</li>
+      </ul>
+    </div>
+  
+    <div class="goods-list" *ngIf="selectedShop">
+      <h2>{{ selectedShop.name }}</h2>
+      <ul>
+        <li *ngFor="let good of selectedShop.goods">{{ good.name }} - {{ good.price }}</li>
+      </ul>
+    </div>
+  </div>
