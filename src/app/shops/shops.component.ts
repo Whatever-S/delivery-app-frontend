@@ -1,5 +1,5 @@
 import { Component, OnInit  } from '@angular/core';
-import { Shop } from '../models/shop.interface';
+import { Shop, Good } from '../models/shop.interface';
 import { ShopsServerService } from '../services/shops-server.service';
 
 @Component({
@@ -30,5 +30,9 @@ export class ShopsComponent implements OnInit {
 
   selectShop(shop: Shop): void {
     this.selectedShop = shop;
+  }
+
+  addToCart(good: Good){
+    alert(`Added: ${good.name}`)
   }
 }

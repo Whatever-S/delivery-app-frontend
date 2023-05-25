@@ -1,0 +1,54 @@
+@import '../../styles.scss';
+
+.shops-container{
+  display: flex;
+  margin: 40px auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1200px;
+  gap: 10px
+}
+
+.section{
+  border: 1px solid var(--clr-accent);
+  border-radius: 10px;
+  height: 400px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  align-items:center
+}
+
+.shop-item{
+  height: 50px;
+  width: 200px;
+}
+
+.title{
+  color: var(--clr-accent);
+  margin-bottom: 15px;
+  align-self:flex-start;
+}
+
+.goods-list{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
+
+}
+
+.goods-item{
+  padding: 15px;
+  height: 100px;
+  min-width: 300px;
+  border: 1px solid var(--clr-accent);
+  border-radius: 10px;
+}
+
+.btn-add{
+  height: 30px;
+  width: 100px;
+}

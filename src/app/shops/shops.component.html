@@ -1,15 +1,19 @@
 <div class="shops-container">
-    <div class="shop-list">
-      <h2>Shops</h2>
-      <ul>
-        <li *ngFor="let shop of shops" (click)="selectShop(shop)">{{ shop.name }}</li>
+    <div class="shop-section section">
+      <h2 class="shop-section_title title ">Shops:</h2>
+      <ul class="shop-list list">
+        <li *ngFor="let shop of shops" (click)="selectShop(shop)"><button class="shop-item">{{ shop.name }}</button></li>
       </ul>
     </div>
-  
-    <div class="goods-list" *ngIf="selectedShop">
-      <h2>{{ selectedShop.name }}</h2>
-      <ul>
-        <li *ngFor="let good of selectedShop.goods">{{ good.name }} - {{ good.price }}</li>
+
+    <div class="goods-section section" *ngIf="selectedShop">
+      <h2 class="title">{{ selectedShop.name }}</h2>
+      <ul class="goods-list list">
+        <li class="goods-item" *ngFor="let good of selectedShop.goods">
+          <p>{{ good.name }}</p>
+          <p>price: {{ good.price | currency}}</p>
+          <button class="btn-add" (click)="addToCart(good)">Add to Cart</button>
+        </li>
       </ul>
     </div>
   </div>
