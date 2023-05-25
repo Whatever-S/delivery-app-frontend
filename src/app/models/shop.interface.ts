@@ -1,10 +1,19 @@
 export interface Shop {
     _id: string;
     name: string;
-    goods: Good[];
+    goods: Product[];
 }
 
-export interface Good {
+export interface Product {
     name: string;
     price: number;
+    quantity: number;
+}
+
+export interface Order {
+  _id?: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  products: Product[];
 }

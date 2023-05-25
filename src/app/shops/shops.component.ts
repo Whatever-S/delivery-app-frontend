@@ -1,6 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
-import { Shop, Good } from '../models/shop.interface';
-import { ShopsServerService } from '../services/shops-server.service';
+import { Shop, Product } from '../models/shop.interface';
+import { ShopsServerService } from '../services/shops.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-shops',
@@ -11,7 +12,7 @@ export class ShopsComponent implements OnInit {
   shops: Shop[] = [];
   selectedShop: Shop | null = null;
 
-  constructor(private shopsServerService: ShopsServerService) { }
+  constructor(private shopsServerService: ShopsServerService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.getShops();
@@ -32,7 +33,8 @@ export class ShopsComponent implements OnInit {
     this.selectedShop = shop;
   }
 
-  addToCart(good: Good){
-    alert(`Added: ${good.name}`)
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    console.log('Added')
   }
 }
