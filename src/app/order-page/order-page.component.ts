@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Product } from '../models/shop.interface';
+import { Order, Product } from '../models/shop.interface';
 import { OrderService } from '../services/order.service';
 import { CartService } from '../services/cart.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-order-page',
@@ -10,44 +11,47 @@ import { CartService } from '../services/cart.service';
 })
 export class OrderPageComponent {
   cartItems: Product[] = [];
-  email: string = '';
-  phoneNumber: string = '';
-  address: string = '';
+  userInfoForm: FormGroup;
+  totalPrice: number = 0;
 
-  constructor(private orderService: OrderService, private cartService: CartService) { }
+  constructor(private orderService: OrderService, private cartService: CartService) {
+    this.userInfoForm = new FormGroup({
+      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{7}')]),
+      address: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(60)])
+    });
+  }
 
   ngOnInit() {
     this.cartItems = this.cartService.getCartItems();
-    console.log('sasad', this.cartItems)
+    this.calculateTotalPrice();
+  }
+
+  decreaseQuantity(product: Product) {
+    this.cartService.decreaseQuantity(product);
+    this.calculateTotalPrice();
+  }
+
+  increaseQuantity(product: Product) {
+    this.cartService.increaseQuantity(product);
+    this.calculateTotalPrice();
   }
 
   removeFromCart(product: Product) {
-    this.orderService.removeFromCart(product);
-  }
-
-  updateQuantity(product: Product, quantity: number) {
-    this.orderService.updateQuantity(product, quantity);
+    this.cartService.removeFromCart(product);
+    this.calculateTotalPrice();
   }
 
   submitOrder() {
-    const order = {
-      email: this.email,
-      phoneNumber: this.phoneNumber,
-      address: this.address,
-      products: this.cartItems
-    };
+    console.log(this.cartItems)
+    if (this.userInfoForm.valid) {
+      console.log("good")
+    }
+  }
 
-    this.orderService.submitOrder(order).subscribe(
-      response => {
-        console.log('Order submitted successfully:', response);
-        this.cartItems = [];
-        this.email = '';
-        this.phoneNumber = '';
-        this.address = '';
-      },
-      error => {
-        console.error('Error submitting order:', error);
-      }
-    );
+  private calculateTotalPrice() {
+    this.totalPrice = this.cartItems.reduce((total, item) => total + (item.quantity * item.price), 0);
   }
 }

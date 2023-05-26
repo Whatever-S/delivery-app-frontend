@@ -1,13 +1,9 @@
 @import '../../styles.scss';
 
 .shops-container{
-  display: flex;
-  margin: 40px auto;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  max-width: 1200px;
-  gap: 10px
 }
 
 .section{

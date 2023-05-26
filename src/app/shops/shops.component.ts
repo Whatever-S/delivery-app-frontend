@@ -35,6 +35,6 @@ export class ShopsComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    console.log('Added')
+    //console.log('Added')
   }
 }
